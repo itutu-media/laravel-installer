@@ -2,9 +2,9 @@
 
 namespace ITUTUMedia\LaravelInstaller;
 
+use ITUTUMedia\LaravelInstaller\Commands\LaravelInstallerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use ITUTUMedia\LaravelInstaller\Commands\LaravelInstallerCommand;
 
 class LaravelInstallerServiceProvider extends PackageServiceProvider
 {
