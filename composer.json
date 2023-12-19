@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "itutu-media/laravel-installer",
+    "description": "Laravel Installer is a package that handles the installation of the application. It extends Laravel's Command class and has a signature of app:install. This command can be run in the terminal with php artisan app:install.",
     "keywords": [
-        ":vendor_name",
+        "ITUTU Media",
         "laravel",
-        ":package_slug"
+        "laravel-installer"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/itutu-media/laravel-installer",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "ITUTU Media",
+            "email": "hello@itutu-media.id",
             "role": "Developer"
         }
     ],
@@ -35,19 +35,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "ITUTUMedia\\LaravelInstaller\\": "src/",
+            "ITUTUMedia\\LaravelInstaller\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "ITUTUMedia\\LaravelInstaller\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-installer --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,13 +73,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "ITUTUMedia\\LaravelInstaller\\LaravelInstallerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelInstaller": "ITUTUMedia\\LaravelInstaller\\Facades\\LaravelInstaller"
             }
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
