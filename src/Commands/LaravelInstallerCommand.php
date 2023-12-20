@@ -186,7 +186,7 @@ class LaravelInstallerCommand extends Command
 
         $this->info('===========================================');
         // Ask the user if they want to create a user
-        if (class_exists(\ItutuMedia\LaravelMakeUser\CreateUserServiceProvider::class) && ($this->option('force') || $this->confirm('Do you want to create a user?'))) {
+        if (class_exists(\ITUTUMedia\LaravelMakeUser\LaravelMakeUser::class) && ($this->option('force') || $this->confirm('Do you want to create a user?'))) {
             $this->info('Creating user...');
 
             // Create a user
