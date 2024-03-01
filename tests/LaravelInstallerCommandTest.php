@@ -1,9 +1,9 @@
 <?php
 
-use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Assert;
 
 it('sets env if not exists', function () {
     // Mock the existence of .env file
