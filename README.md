@@ -21,8 +21,8 @@ php artisan app:install
 
 ### Command Options
 The `app:install` command supports the following options:
-> `--all-variable` - Install all variables in .env file.
->
+> `--set-env` option will set the environment variables in the `.env` file.
+> `--modules` option will install application as a modular application.
 > `--force` option will override existing files.
 
 ## Testing

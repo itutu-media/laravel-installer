@@ -16,25 +16,32 @@ class LaravelInstallerCommand extends Command
 
     public function handle(): int
     {
-        if (!file_exists(base_path('.env'))) {
-            $this->warn('The .env file does not exist. It will set the .env file first.');
+        // Get the path to the .env file
+        $envPath = base_path('.env');
+
+        // Get the application key
+        $key = config('app.key');
+
+        // Check if .env file exists only once and store the result
+        $envExists = file_exists($envPath);
+
+        // Check if the .env file already exists
+        if (!$envExists || $this->databaseNotConnected()) {
+            // Output a message to the console
+            $this->warn('The .env file does not exist or the database is not connected. It will set the .env file first.');
+
+            // Set the --set-env option to true
             $this->input->setOption('set-env', true);
-        }
-
-
-        if (!DB::connection()->getPdo()) {
-            $this->warn('Database connection failed. It will set the .env file first.');
-            $this->input->setOption('set-env', true);
-        }
-
-        if (file_exists(base_path('.env'))) {
-            if ($this->confirm('Do you want to run full backup?')) {
-                $this->backup();
-            }
         }
 
         // Check if the .env file already exists
-        if (file_exists(base_path('.env')) && ($this->option('force') || $this->option('set-env'))) {
+        if ($envExists && $this->confirm('Do you want to run full backup?')) {
+            // If the user wants to re-install, create a backup of the current .env file
+            $this->backup();
+        }
+
+        // Check if the .env file already exists
+        if ($envExists && ($this->option('force') || $this->option('set-env'))) {
 
             // If the user wants to re-install, create a backup of the current .env file
             $this->warn('This will delete all your data in the database. A backup of the current .env file will be created. If you want to keep your data, cancel the installation and run the command without the --force option.');
@@ -43,7 +50,8 @@ class LaravelInstallerCommand extends Command
             if (!$this->confirm('Are you sure you want to continue?')) {
 
                 // Output a message to the console
-                return $this->info('Installation aborted.');
+                $this->info('Installation aborted.');
+                return self::SUCCESS;
             } else {
 
                 // If the user wants to re-install, create a backup of the current .env file
@@ -109,7 +117,8 @@ class LaravelInstallerCommand extends Command
                             $input = $this->ask(ucfirst($field), $exist == '""' || $exist == '' ? 'forge' : $exist);
                             $rules = ['required'];
                         } elseif ($field == 'DB_PASSWORD') {
-                            $input = $this->secret(ucfirst($field), $exist == '""' || $exist == '' ? '' : $exist);
+                            $input = $this->secret(ucfirst($field));
+                            $input = $input == '' ? $exist : $input;
                             $rules = ['nullable'];
                         } else {
                             if ($this->option('set-env')) {
@@ -214,6 +223,7 @@ class LaravelInstallerCommand extends Command
         return self::SUCCESS;
     }
 
+    // Create a backup of the current .env file
     protected function backup()
     {
         $this->info('Re-installing the application...');
@@ -229,12 +239,14 @@ class LaravelInstallerCommand extends Command
         }
     }
 
+    // Replace the existing value with the validated value in the .env file
     protected function replaceInFile($search, $replace, $path)
     {
         // Get the contents of the file
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
 
+    // Validate the input
     private function _validate($data, $rules): \Illuminate\Contracts\Validation\Validator
     {
         // Create a validator instance for the given data and rules
@@ -246,5 +258,16 @@ class LaravelInstallerCommand extends Command
         }
 
         return $validator;
+    }
+    
+    // Check if the database is not connected
+    protected function databaseNotConnected(): bool
+    {
+        try {
+            DB::connection()->getPdo();
+            return false;
+        } catch (\Exception $e) {
+            return true;
+        }
     }
 }
