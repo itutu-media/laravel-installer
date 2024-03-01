@@ -26,7 +26,7 @@ class LaravelInstallerCommand extends Command
         $envExists = file_exists($envPath);
 
         // Check if the .env file already exists
-        if (!$envExists || $this->databaseNotConnected()) {
+        if (! $envExists || $this->databaseNotConnected()) {
             // Output a message to the console
             $this->warn('The .env file does not exist or the database is not connected. It will set the .env file first.');
 
@@ -51,6 +51,7 @@ class LaravelInstallerCommand extends Command
 
                 // Output a message to the console
                 $this->info('Installation aborted.');
+
                 return self::SUCCESS;
             } else {
 
@@ -260,12 +261,13 @@ class LaravelInstallerCommand extends Command
 
         return $validator;
     }
-    
+
     // Check if the database is not connected
     protected function databaseNotConnected(): bool
     {
         try {
             DB::connection()->getPdo();
+
             return false;
         } catch (\Exception $e) {
             return true;
