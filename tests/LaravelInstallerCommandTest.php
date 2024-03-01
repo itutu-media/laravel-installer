@@ -3,7 +3,6 @@
 use PHPUnit\Framework\Assert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 it('sets env if not exists', function () {
