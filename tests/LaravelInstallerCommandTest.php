@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\TestCase;
 
 it('sets env if not exists', function () {
     // Mock the existence of .env file
