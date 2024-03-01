@@ -47,7 +47,7 @@ class LaravelInstallerCommand extends Command
             $this->warn('This will delete all your data in the database. A backup of the current .env file will be created. If you want to keep your data, cancel the installation and run the command without the --force option.');
 
             // If the user doesn't want to re-install, stop the installation
-            if (!$this->confirm('Are you sure you want to continue?')) {
+            if (! $this->confirm('Are you sure you want to continue?')) {
 
                 // Output a message to the console
                 $this->info('Installation aborted.');
@@ -99,7 +99,7 @@ class LaravelInstallerCommand extends Command
                             $input = $this->ask(ucfirst($field), $exist == '""' || $exist == '' ? 'Laravel' : $exist);
                             $rules = ['required'];
                         } elseif ($field == 'APP_KEY') {
-                            $key = $input = $this->ask(ucfirst($field) . ' (leave blank to auto-generate)', $exist == '""' || $exist == '' ? '' : $exist);
+                            $key = $input = $this->ask(ucfirst($field).' (leave blank to auto-generate)', $exist == '""' || $exist == '' ? '' : $exist);
                             $rules = ['nullable'];
                         } elseif ($field == 'DB_CONNECTION') {
                             $input = $this->choice(ucfirst($field), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], $exist == 'mysql' ? 0 : ($exist == 'pgsql' ? 1 : ($exist == 'sqlite' ? 2 : 3)));
@@ -140,12 +140,13 @@ class LaravelInstallerCommand extends Command
                     // Replace the existing value with the validated value in the .env file
                     $validated = $validator->validated()[$field];
                     if (strpos($validated, ' ') !== false) {
-                        $validated = '"' . $validated . '"';
+                        $validated = '"'.$validated.'"';
                     }
-                    $this->replaceInFile($line, $field . '=' . $validated, base_path('.env'));
+                    $this->replaceInFile($line, $field.'='.$validated, base_path('.env'));
                 }
             }
             $this->info('New value has been set, please run command php artisan app:install again');
+
             return self::SUCCESS;
         }
 
@@ -218,7 +219,7 @@ class LaravelInstallerCommand extends Command
         if (isset($passport)) {
             $this->info($passport);
         }
-        $this->info('Installation complete. You can now run the application by visiting ' . config('app.url') . ' in your browser.');
+        $this->info('Installation complete. You can now run the application by visiting '.config('app.url').' in your browser.');
 
         return self::SUCCESS;
     }
@@ -230,7 +231,7 @@ class LaravelInstallerCommand extends Command
         $this->info('Creating backup of the current .env file...');
 
         // Create a backup of the current .env file
-        copy(base_path('.env'), base_path('.env.backup.' . date('Y-m-d_H-i-s')));
+        copy(base_path('.env'), base_path('.env.backup.'.date('Y-m-d_H-i-s')));
 
         // Backup the database
         if (class_exists(\Spatie\Backup\BackupServiceProvider::class)) {
@@ -254,7 +255,7 @@ class LaravelInstallerCommand extends Command
 
         // If the validator fails, output a warning with the first validation error message
         if ($validator->fails()) {
-            $this->warn('Validation error: ' . $validator->errors()->first());
+            $this->warn('Validation error: '.$validator->errors()->first());
         }
 
         return $validator;
