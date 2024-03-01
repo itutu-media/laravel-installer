@@ -1,7 +1,7 @@
 # Setup Laravel Application with one command
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/itutu-media/laravel-installer.svg?style=flat-square)](https://packagist.org/packages/itutu-media/laravel-installer)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/itutu-media/laravel-installer/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/itutu-media/laravel-installer/actions/workflows/fix-php-code-style-issues.yml)
+[![Fix PHP code style issues](https://github.com/itutu-media/laravel-installer/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/itutu-media/laravel-installer/actions/workflows/fix-php-code-style-issues.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/itutu-media/laravel-installer.svg?style=flat-square)](https://packagist.org/packages/itutu-media/laravel-installer)
 
 ## Installation
