@@ -1,10 +1,10 @@
 <?php
 
-use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Assert;
 
 it('sets env if not exists', function () {
     // Mock the existence of .env file
@@ -13,8 +13,8 @@ it('sets env if not exists', function () {
 
     Artisan::call('app:install');
 
-  // Assert that .env file was set
-  Assert::assertTrue(Storage::disk('local')->exists('.env'));
+    // Assert that .env file was set
+    Assert::assertTrue(Storage::disk('local')->exists('.env'));
 });
 
 it('sets env if db connection fails', function () {
@@ -23,6 +23,6 @@ it('sets env if db connection fails', function () {
 
     Artisan::call('app:install');
 
-  // Assert that .env file was set
-  Assert::assertTrue(Storage::disk('local')->exists('.env'));
+    // Assert that .env file was set
+    Assert::assertTrue(Storage::disk('local')->exists('.env'));
 });
